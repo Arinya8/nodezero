@@ -1,0 +1,27 @@
+# Generated processed data — do not commit
+data/processed/
+
+# SQLite database file
+database/app.db
+
+# Parked duplicate / scratch files
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+.pytest_cache/
