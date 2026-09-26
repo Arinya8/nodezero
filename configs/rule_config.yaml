@@ -1,0 +1,101 @@
+units:
+  canonical_otr: "cm3/m2/day"
+  canonical_wvtr: "g/m2/day"
+
+rules:
+  high_fat:
+    fat_pct_threshold: 15.0
+    max_otr: 10.0
+
+  hygroscopic:
+    moisture_pct_threshold: 10.0
+    water_activity_threshold: 0.3
+    max_wvtr: 1.0
+
+  fresh_produce:
+    min_otr: 10000.0
+    max_otr: 100000.0
+
+  acidic_liquid:
+    ph_threshold: 4.5
+    moisture_pct_threshold: 60.0
+
+  pan_masala:
+    prohibited_materials:
+      - "polyethylene"
+      - "polypropylene"
+      - "polyester"
+      - "pvc"
+      - "synthetic polymers"
+      - "copolymers"
+      - "laminates"
+      - "aluminium foil"
+      - "metallised layers"
+      - "pe"
+      - "pp"
+      - "pet"
+      - "bopp"
+    permitted_materials:
+      - "tin"
+      - "glass"
+      - "paper"
+      - "paperboard"
+      - "cellulose"
+
+  thickness:
+    min_thickness_um: 50.0
+    restricted_formats:
+      - "carry bag"
+      - "flexible sheet"
+
+food_categories:
+  "Fruits, Vegetables, Salads":
+    min_otr: 10000.0
+    max_otr: 200000.0
+    min_wvtr: 10.0
+    max_wvtr: 3000.0
+  "Bakery products":
+    min_otr: 30.0
+    max_otr: 4000.0
+    min_wvtr: 600.0
+    max_wvtr: 3000.0
+  "Cheese":
+    min_otr: 7.0
+    max_otr: 10.0
+    min_wvtr: 300.0
+    max_wvtr: 600.0
+  "Meat, MAP":
+    min_otr: 2.0
+    max_otr: 20.0
+    min_wvtr: 10.0
+    max_wvtr: 50.0
+  "Fresh meat, MAP":
+    min_otr: 20.0
+    max_otr: 40.0
+    min_wvtr: 2.0
+    max_wvtr: 4.0
+  "Peanuts":
+    min_otr: 0.7
+    max_otr: 10.0
+    min_wvtr: 2.0
+    max_wvtr: 8.0
+  "Instant coffee":
+    min_otr: 0.2
+    max_otr: 2.0
+    min_wvtr: 0.7
+    max_wvtr: 3.0
+  "Baby food":
+    min_otr: 0.1
+    max_otr: 1.0
+    min_wvtr: 0.5
+    max_wvtr: 2.0
+  "Edible Oils and Fats":
+    min_otr: 0.1
+    max_otr: 2.0
+    min_wvtr: 1.0
+    max_wvtr: 10.0
+  "Pan Masala":
+    min_otr: null
+    max_otr: 1.0
+    min_wvtr: null
+    max_wvtr: 0.5
