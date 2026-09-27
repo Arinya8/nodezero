@@ -16,7 +16,7 @@ from src.rule_engine.models import (
 from src.rule_engine.rules.base import BaseRule
 from src.rule_engine.rules.physics import get_all_physics_rules
 from src.rule_engine.rules.regulatory import get_all_regulatory_rules
-from src.rule_engine.scoring import DeterministicBarrierRanker, rank_feasible_materials
+from src.rule_engine.scoring import DeterministicBarrierRanker
 from src.rule_engine.clustering import group_materials
 
 

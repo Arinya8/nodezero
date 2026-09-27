@@ -75,13 +75,3 @@ class DeterministicBarrierRanker:
         recommendation.score_components = score_components
 
         return recommendation.score
-
-
-def rank_feasible_materials(recommendations: List[Recommendation]) -> List[Recommendation]:
-    """Sort FEASIBLE candidates deterministically by score in descending order."""
-    ranker = DeterministicBarrierRanker()
-    for rec in recommendations:
-        if rec.status == "FEASIBLE":
-            # Dummy material/food for protocol if needed, properties already populated in rec
-            pass
-    return sorted(recommendations, key=lambda r: (r.score or 0.0), reverse=True)

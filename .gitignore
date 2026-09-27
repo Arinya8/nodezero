@@ -7,6 +7,9 @@ database/app.db
 # Parked duplicate / scratch files
 tmp/
 
+# Documentation stays local unless deliberately shared
+*.md
+
 # Python
 __pycache__/
 *.py[cod]

@@ -81,3 +81,49 @@ def load_food_profiles_from_csv(csv_path: str) -> List[FoodProfile]:
     """Load food profiles from processed CSV file."""
     df = pd.read_csv(csv_path)
     return [create_food_profile_from_dict(row.to_dict()) for _, row in df.iterrows()]
+
+
+def load_food_profiles_from_sources(food_csv_path: str, requirements_csv_path: str) -> List[FoodProfile]:
+    """Build the searchable profiles directly from the tracked source CSVs."""
+    foods = pd.read_csv(food_csv_path)
+    requirements = pd.read_csv(requirements_csv_path).rename(columns={"Food_Category": "packaging_category"})
+    foods["packaging_category"] = foods["grup"].map(FOOD_CATEGORY_MAP)
+    merged = foods.merge(requirements, on="packaging_category", how="left")
+
+    profiles = []
+    keep = {
+        "code", "name", "scie", "lang", "grup", "regn", "tags", "water", "fatce",
+        "protcnt", "fapu", "fams", "vitc", "polyph", "cartoid", "packaging_category",
+        "Min_OTR", "Max_OTR", "Min_WVTR", "Max_WVTR", "Description",
+    }
+    for raw in merged.to_dict(orient="records"):
+        row = {
+            key: (None if pd.isna(raw.get(key)) else raw.get(key))
+            for key in keep
+        }
+        water = pd.to_numeric(row.get("water"), errors="coerce")
+        fat = pd.to_numeric(row.get("fatce"), errors="coerce")
+        row["water"] = None if pd.isna(water) else float(water)
+        row["fatce"] = None if pd.isna(fat) else float(fat)
+        row["moisture_class"] = (
+            "low" if pd.notna(water) and water < 20 else
+            "medium" if pd.notna(water) and water < 50 else
+            "high" if pd.notna(water) and water < 75 else
+            "very_high" if pd.notna(water) else None
+        )
+        row["moisture_barrier_requirement"] = (
+            "high" if pd.notna(water) and water >= 75 else
+            "medium" if pd.notna(water) and water >= 40 else
+            "high_for_moisture_gain" if pd.notna(water) else "unknown"
+        )
+        def nutrient(key: str) -> float:
+            value = pd.to_numeric(row.get(key), errors="coerce")
+            return float(value) if pd.notna(value) else 0.0
+
+        row["oxidation_risk_index"] = (
+            nutrient("fapu") + 0.5 * nutrient("fams") + 0.2 * nutrient("fatce")
+            - 0.01 * nutrient("vitc") - 0.01 * nutrient("polyph") - 0.01 * nutrient("cartoid")
+        )
+        row["food_risk_profile"] = row["moisture_barrier_requirement"]
+        profiles.append(create_food_profile_from_dict(row))
+    return profiles

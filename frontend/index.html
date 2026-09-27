@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="Explore food packaging requirements and the reasoning behind them.">
+  <title>poshanpotli — Food packaging fit</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-mark">P</span>poshanpotli</a></header>
+  <main>
+    <section class="welcome" aria-labelledby="page-title">
+      <p class="eyebrow">FOOD PACKAGING GUIDE</p>
+      <h1 id="page-title">Start with your food.</h1>
+      <p class="welcome-copy">Choose a food to see its packaging fit and why those requirements matter.</p>
+      <div class="finder">
+        <label for="food-search">Search by food name or group</label>
+        <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="food-search" type="search" placeholder="For example, apple or cereals" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="food-options" aria-expanded="false"></div>
+        <p class="search-status" id="search-status" aria-live="polite">Search the food database to begin.</p>
+        <div class="food-options" id="food-options" role="listbox" aria-label="Matching foods" hidden></div>
+      </div>
+    </section>
+
+    <section class="result" id="food-result" aria-live="polite" hidden>
+      <div class="result-heading"><div><p class="eyebrow">PACKAGING FIT</p><h2 id="food-name"></h2></div><span class="food-code" id="food-code"></span></div>
+      <p class="food-group" id="food-group"></p>
+      <p class="category-line">Mapped category <strong id="food-category"></strong></p>
+      <div class="barrier-summary">
+        <div><span class="metric">OTR</span><span class="metric-name">Oxygen transmission</span><strong id="otr-range"></strong><small>cm³/m²/day</small></div>
+        <div><span class="metric water">WVTR</span><span class="metric-name">Water vapor transmission</span><strong id="wvtr-range"></strong><small>g/m²/day</small></div>
+      </div>
+      <div class="reason"><p class="eyebrow">WHY THIS FIT?</p><p id="reason-text"></p></div>
+      <details class="food-details"><summary>Food profile details</summary><dl><div><dt>Water content</dt><dd id="food-water"></dd></div><div><dt>Fat content</dt><dd id="food-fat"></dd></div><div><dt>Moisture profile</dt><dd id="food-moisture"></dd></div><div><dt>Risk profile</dt><dd id="food-risk"></dd></div></dl></details>
+      <button class="primary-button" id="analyze-food" type="button">Check materials <span aria-hidden="true">→</span></button>
+      <section class="analysis" id="food-analysis" aria-live="polite" hidden></section>
+    </section>
+
+    <section class="manual-entry">
+      <button class="text-button" id="manual-toggle" type="button" aria-expanded="false" aria-controls="manual-panel">Your food isn’t listed or mapped? <span>Choose a category manually ↓</span></button>
+      <div class="manual-panel" id="manual-panel" hidden>
+        <p class="eyebrow">MANUAL FOOD PROFILE</p>
+        <h2>Use a known packaging category</h2>
+        <p class="manual-copy">Choose the closest category. Its saved barrier range will prefill the controls below.</p>
+        <label for="manual-name">Food name <span class="optional">optional</span></label>
+        <input class="text-input" id="manual-name" type="text" maxlength="120" placeholder="Name this food">
+        <label for="manual-category">Closest packaging category</label>
+        <select class="text-input" id="manual-category"><option value="">Loading categories…</option></select>
+        <p class="manual-description" id="manual-description">Select a category to see its saved requirements.</p>
+        <div class="manual-slider" id="manual-otr-wrap" hidden><label for="manual-otr">Maximum OTR <output><span id="manual-otr-value">—</span> <span>cm³/m²/day</span></output></label><input id="manual-otr" type="range" disabled></div>
+        <div class="manual-slider" id="manual-wvtr-wrap" hidden><label for="manual-wvtr">Maximum WVTR <output><span id="manual-wvtr-value">—</span> <span>g/m²/day</span></output></label><input id="manual-wvtr" type="range" disabled></div>
+        <button class="primary-button" id="analyze-manual" type="button" disabled>Check materials <span aria-hidden="true">→</span></button>
+        <section class="analysis" id="manual-analysis" aria-live="polite" hidden></section>
+      </div>
+    </section>
+  </main>
+  <footer><span>POSHANPOTLI</span><span>Screening guidance from project data</span></footer>
+</body>
+</html>

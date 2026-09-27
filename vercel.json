@@ -1,7 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "headers": [
-    { "source": "/foods.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+  "rewrites": [
+    { "source": "/", "destination": "/frontend/index.html" },
+    { "source": "/style.css", "destination": "/frontend/style.css" },
+    { "source": "/app.js", "destination": "/frontend/app.js" }
   ]
 }
