@@ -1,8 +1,8 @@
 # Generated processed data — do not commit
-data/processed/
+backend/data/processed/
 
 # SQLite database file
-database/app.db
+backend/database/app.db
 
 # Parked duplicate / scratch files
 tmp/

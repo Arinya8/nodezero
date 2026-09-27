@@ -10,6 +10,7 @@ let searchAbort;
 let categories=[];
 let selectedCategory=null;
 const manualLimits={};
+const API_BASE=(window.API_BASE||'').replace(/\/$/,'');
 
 const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const numeric=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value))?Number(value):null;
@@ -37,7 +38,7 @@ async function searchFoods(query){
   searchAbort=new AbortController();
   $('search-status').textContent='Searching the food database…';
   try{
-    const response=await fetch(`/api/foods?q=${encodeURIComponent(query)}&limit=30`,{signal:searchAbort.signal});
+    const response=await fetch(`${API_BASE}/api/foods?q=${encodeURIComponent(query)}&limit=30`,{signal:searchAbort.signal});
     const payload=await response.json();
     if(!response.ok)throw new Error(payload.error||`Food search failed (${response.status})`);
     if(current!==requestNumber)return;
@@ -128,7 +129,7 @@ async function loadCategories(){
   if(categories.length)return;
   const select=$('manual-category');
   try{
-    const response=await fetch('/api/categories');
+    const response=await fetch(`${API_BASE}/api/categories`);
     const payload=await response.json();
     if(!response.ok)throw new Error(payload.error||`Category list failed (${response.status})`);
     categories=payload.categories||[];
@@ -172,7 +173,7 @@ function renderAnalysis(payload,container){
 async function analyze(body,container,button){
   container.hidden=false;container.innerHTML='<p class="analysis-summary">Checking materials against the saved rule set…</p>';button.disabled=true;
   try{
-    const response=await fetch('/api/recommend',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const response=await fetch(`${API_BASE}/api/recommend`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     const payload=await response.json();
     if(!response.ok)throw new Error(payload.error||`Material check failed (${response.status})`);
     renderAnalysis(payload,container);

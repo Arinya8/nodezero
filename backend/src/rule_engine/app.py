@@ -3,6 +3,7 @@
 import json
 import math
 import csv
+import os
 from dataclasses import asdict, replace
 from functools import lru_cache
 from http.server import BaseHTTPRequestHandler
@@ -234,4 +235,4 @@ if __name__ == "__main__":
         def do_OPTIONS(self):
             return handler.do_OPTIONS(self)
 
-    HTTPServer(("127.0.0.1", 8000), LocalHandler).serve_forever()
+    HTTPServer(("0.0.0.0", int(os.environ.get("PORT", "8000"))), LocalHandler).serve_forever()

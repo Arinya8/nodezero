@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: poshanpotli-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.rule_engine.app

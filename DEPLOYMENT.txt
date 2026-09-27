@@ -1,0 +1,14 @@
+Deployment layout
+=================
+
+Frontend (Vercel)
+- Create a Vercel project from this repository and set the Root Directory to `frontend`.
+- The frontend is static HTML, CSS, and JavaScript; no build command is needed.
+- After the Render service is live, replace the URL in `frontend/config.js` with its public
+  origin, then redeploy the frontend.
+
+Backend (Render)
+- Create a Render Blueprint using this repository. `render.yaml` defines the web service
+  and sets its Root Directory to `backend`.
+- The service starts with Render's assigned PORT and exposes `/api/health`, `/api/foods`,
+  `/api/categories`, and `/api/recommend`.
