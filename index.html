@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="Explore food packaging material requirements and their source data.">
+  <title>poshanpotli — Food packaging explorer</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#top"><span class="brand-mark">P</span>poshanpotli</a><span class="top-note">Food &amp; packaging explorer <i></i></span></header>
+  <main id="top">
+    <section class="intro"><p class="eyebrow">PACKAGING RESEARCH, MADE EXPLORABLE</p><h1>Start with the food.<br>Understand the fit.</h1><p class="lede">Choose a food from the dataset to see its mapped packaging category, barrier ranges, and the reason behind those requirements.</p></section>
+    <section class="explorer">
+      <aside class="panel picker"><p class="eyebrow">FOOD SELECTION</p><h2>What are you packing?</h2><label for="food-search">Search foods</label><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="food-search" type="search" placeholder="Try “amaranth”, “apple”…" autocomplete="off" aria-controls="food-options" aria-expanded="false" aria-autocomplete="list" role="combobox"></div><p class="match-count" id="match-count"></p><div class="food-options" id="food-options" role="listbox" aria-label="Matching foods" hidden></div><p class="picker-foot">Food records from the processed IFCT dataset.</p></aside>
+      <section class="panel detail" aria-live="polite"><div class="detail-head"><div><p class="eyebrow">PACKAGING PROFILE</p><h2 id="food-name">Select a food to begin</h2></div><span class="record-id" id="record-id"></span></div><p class="scientific" id="food-grup"></p>
+        <div class="reason-card"><span class="reason-symbol" aria-hidden="true">↳</span><div><p class="eyebrow">WHY THIS PROFILE?</p><p id="reason-text">Choose a food on the left. Its mapped category and requirement explanation will appear here.</p></div></div>
+        <div class="ranges-title"><div><p class="eyebrow">BARRIER REQUIREMENTS</p><h3>Transmission ranges</h3></div><span class="source-tag">Dataset ranges</span></div>
+        <div class="range-card"><div class="range-head"><div><span class="range-code">OTR</span><strong>Oxygen transmission</strong></div><small>cm³/m²/day</small></div><div class="range-values"><span id="otr-min">—</span><div class="range-line"><i id="otr-range-fill"></i></div><span id="otr-max">—</span></div><label class="slider-label" for="otr-slider">Maximum target <output id="otr-target">—</output></label><input class="barrier-slider" id="otr-slider" type="range" min="0" max="1000" value="1000" step="1" aria-label="Maximum oxygen transmission target"><p class="range-explain" id="otr-explain">Select a food to view its oxygen transmission range.</p></div>
+        <div class="range-card"><div class="range-head"><div><span class="range-code water">WVTR</span><strong>Water vapor transmission</strong></div><small>g/m²/day</small></div><div class="range-values"><span id="wvtr-min">—</span><div class="range-line water-line"><i id="wvtr-range-fill"></i></div><span id="wvtr-max">—</span></div><label class="slider-label" for="wvtr-slider">Maximum target <output id="wvtr-target">—</output></label><input class="barrier-slider water-slider" id="wvtr-slider" type="range" min="0" max="1000" value="1000" step="1" aria-label="Maximum water vapor transmission target"><p class="range-explain" id="wvtr-explain">Select a food to view its moisture transmission range.</p></div>
+        <p class="slider-hint">Drag left to tighten the maximum transmission target, then run the material analysis again.</p>
+        <details class="more-details"><summary>Food details</summary><div class="details-grid"><p><span>Mapped category</span><strong id="category">—</strong></p><p><span>Water content</span><strong id="water">—</strong></p><p><span>Fat content</span><strong id="fat">—</strong></p><p><span>Moisture class</span><strong id="moisture">—</strong></p><p><span>Risk profile</span><strong id="risk">—</strong></p></div></details>
+        <button class="analyze-button" id="analyze" type="button">Run material analysis <span aria-hidden="true">→</span></button>
+        <section class="analysis" id="analysis" aria-live="polite" hidden></section>
+        <p class="note"><span>i</span><span>These ranges are screening guidance from the project dataset. They are not supplier specifications or a verified packaging recommendation.</span></p>
+      </section>
+    </section>
+  </main>
+  <footer><span>POSHANPOTLI</span><span>Food category and ranges are shown from project data</span></footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
