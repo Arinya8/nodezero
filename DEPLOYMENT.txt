@@ -10,5 +10,6 @@ Frontend (Vercel)
 Backend (Render)
 - Create a Render Blueprint using this repository. `render.yaml` defines the web service
   and sets its Root Directory to `backend`.
-- The service starts with Render's assigned PORT and exposes `/api/health`, `/api/foods`,
+- The service starts with Render's assigned PORT. The root URL and `/api/health` return
+  service status; API routes include `/api/foods`,
   `/api/categories`, and `/api/recommend`.

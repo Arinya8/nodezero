@@ -85,7 +85,7 @@ class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path in ("/api", "/api/", "/api/health"):
+        if parsed.path in ("/", "/api", "/api/", "/api/health"):
             return self._send(200, {"ok": True, "service": "packaging-rule-engine", "database_exists": DB_PATH.exists()})
         if parsed.path == "/api/foods":
             foods = self._foods()
@@ -209,30 +209,5 @@ app = handler
 
 
 if __name__ == "__main__":
-    from http.server import HTTPServer, SimpleHTTPRequestHandler
-
-    class LocalHandler(SimpleHTTPRequestHandler):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, directory=str(ROOT / "frontend"), **kwargs)
-
-        def _send(self, status: int, payload: dict):
-            return handler._send(self, status, payload)
-
-        def _foods(self):
-            return handler._foods(self)
-
-        def _categories(self):
-            return handler._categories(self)
-
-        def do_GET(self):
-            if urlparse(self.path).path.startswith("/api/") or self.path.rstrip("/") == "/api":
-                return handler.do_GET(self)
-            return super().do_GET()
-
-        def do_POST(self):
-            return handler.do_POST(self)
-
-        def do_OPTIONS(self):
-            return handler.do_OPTIONS(self)
-
-    HTTPServer(("0.0.0.0", int(os.environ.get("PORT", "8000"))), LocalHandler).serve_forever()
+    from http.server import HTTPServer
+    HTTPServer(("0.0.0.0", int(os.environ.get("PORT", "8000"))), handler).serve_forever()
