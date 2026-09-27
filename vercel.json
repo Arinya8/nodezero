@@ -2,8 +2,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
     { "source": "/", "destination": "/frontend/index.html" },
     { "source": "/style.css", "destination": "/frontend/style.css" },
-    { "source": "/app.js", "destination": "/frontend/app.js" }
+    { "source": "/app.js", "destination": "/frontend/app.js" },
+    { "source": "/(.*)", "destination": "/frontend/$1" }
   ]
 }
